@@ -1,0 +1,11 @@
+# Compiled executables
+*.exe
+
+# Log files
+*.log
+
+# Generated output
+received_logs.txt
+
+# VS Code settings
+.vscode/
