@@ -1,106 +1,187 @@
-\# Distributed Log Monitoring System
+# Distributed Log Monitoring System
 
+A **multithreaded distributed log monitoring system** built in **C** using **TCP socket programming and Windows Winsock**. Multiple clients can connect to a centralized server and transmit application logs in real time. The server processes logs, detects errors, monitors client health, and maintains per-client statistics.
 
+## 🚀 Features
 
-A distributed client-server log monitoring system developed in C using TCP sockets and Windows Winsock. The system allows multiple clients to transmit application logs to a centralized server, where logs are processed, classified, monitored, and stored.
+- TCP-based client-server communication
+- Multithreaded server for multiple concurrent clients
+- Unique client identification
+- Real-time log collection and processing
+- INFO, WARNING, and ERROR classification
+- Real-time ERROR alerts
+- Heartbeat-based client monitoring
+- Client health and online/offline status
+- Per-client log statistics
+- Timestamped logs
+- Persistent server-side log storage
+- Mutex-based synchronization
 
-
-
-\## Features
-
-
-
-\- TCP-based client-server communication
-
-\- Multi-client support
-
-\- Multithreaded server architecture
-
-\- Unique client identification
-
-\- Centralized log collection
-
-\- INFO, WARNING, and ERROR log classification
-
-\- Real-time ERROR alerts
-
-\- Per-client log statistics
-
-\- Heartbeat-based client monitoring
-
-\- Client online/offline health tracking
-
-\- Timestamped log processing
-
-\- Persistent server-side log storage
-
-\- Mutex-based synchronization for shared data
-
-\- Tested with multiple concurrent clients
-
-
-
-\## System Architecture
-
-
+## 🏗️ Architecture
 
 ```text
+        CLIENT-01 ───┐
+        CLIENT-02 ───┤
+        CLIENT-03 ───┼── TCP ──► CENTRAL SERVER
+        CLIENT-04 ───┘             │
+                                   ├── Log Processing
+                                   ├── Error Detection
+                                   ├── Heartbeat Monitoring
+                                   ├── Client Statistics
+                                   └── Persistent Logging
+```
 
-&#x20;            +----------------+
+The server uses a **thread-per-client architecture**, allowing multiple clients to send logs concurrently.
 
-&#x20;            |    Client 01   |
+## 🛠️ Technologies
 
-&#x20;            |   TCP Socket   |
+- **Language:** C
+- **Networking:** TCP/IP, Socket Programming
+- **API:** Windows Winsock2
+- **Concurrency:** Multithreading
+- **Synchronization:** Mutex
+- **Platform:** Windows
+- **Version Control:** Git & GitHub
 
-&#x20;            +-------+--------+
+## 📊 Sample Output
 
-&#x20;                    |
+```text
+========================================
+   DISTRIBUTED LOG MONITORING SERVER
+========================================
+Server Status : RUNNING
+Port          : 5000
+Multi-client  : ENABLED
+Monitoring    : ENABLED
+Statistics    : ENABLED
+Heartbeat     : ENABLED
+========================================
 
-&#x20;                    |
+Client connected. Thread ID: 21704
 
-&#x20;            +-------v--------+
+[2026-09-01 21:52:29] [Thread 21704] [CLIENT-01] INFO: Application started
+[2026-09-01 21:52:31] [Thread 21704] [CLIENT-01] WARNING: Memory usage is high
 
-&#x20;            |                |
+************ ERROR ALERT ************
+[2026-09-01 21:52:33] [Thread 21704] [CLIENT-01] ERROR: Database connection failed
+Client CLIENT-01 generated an ERROR.
+*************************************
 
-&#x20;            | Monitoring     |
+[2026-09-01 21:52:35] [Thread 21704] [CLIENT-01] INFO: Application stopped
 
-&#x20;            | Server         |
+Client disconnected. Thread ID: 21704
+```
 
-&#x20;            |                |
+### Client Statistics
 
-&#x20;            | TCP Sockets    |
+```text
+====================================================
+                CLIENT STATISTICS
+====================================================
+Client          Total    INFO     WARNING    ERROR
+----------------------------------------------------
+CLIENT-01       4        2        1          1
+CLIENT-02       4        2        1          1
+CLIENT-03       4        2        1          1
+CLIENT-04       4        2        1          1
+====================================================
+```
 
-&#x20;            | Multithreading |
+## ⚙️ Setup
 
-&#x20;            | Log Processing |
+### Prerequisites
 
-&#x20;            | Error Alerts   |
+- Windows
+- GCC / MinGW
+- Git
 
-&#x20;            | Statistics     |
+### Clone
 
-&#x20;            | Health Monitor |
+```bash
+git clone https://github.com/sanskrithavaidya/DISTRIBUTED-LOG-MONITORING-SYSTEM.git
+cd DISTRIBUTED-LOG-MONITORING-SYSTEM
+```
 
-&#x20;            +---+--------+---+
+### Compile Server
 
-&#x20;                |        |
+```powershell
+gcc server.c -o server.exe -lws2_32
+```
 
-&#x20;         +------+        +------+
+### Compile Client
 
-&#x20;         |                     |
+```powershell
+gcc client.c -o client.exe -lws2_32
+```
 
-&#x20;  +------v------+       +------v------+
+## ▶️ Run
 
-&#x20;  |   Client 02 |       |   Client 03 |
+### Start Server
 
-&#x20;  +-------------+       +-------------+
+```powershell
+.\server.exe
+```
 
-&#x20;                \\
+The server listens on **TCP port 5000**.
 
-&#x20;                 \\ 
+### Start Clients
 
-&#x20;              +--v---------+
+Open separate terminals and run:
 
-&#x20;              |  Client 04 |
+```powershell
+.\client.exe CLIENT-01
+```
 
-&#x20;              +------------+
+```powershell
+.\client.exe CLIENT-02
+```
 
+```powershell
+.\client.exe CLIENT-03
+```
+
+```powershell
+.\client.exe CLIENT-04
+```
+
+Multiple clients can connect simultaneously and transmit logs to the server.
+
+## 📁 Project Structure
+
+```text
+DISTRIBUTED-LOG-MONITORING-SYSTEM/
+│
+├── client.c
+├── server.c
+├── README.md
+└── .gitignore
+```
+
+Generated executables and runtime log files are excluded from Git using `.gitignore`.
+
+## 🔮 Future Enhancements
+
+- Web-based monitoring dashboard
+- Database-backed log storage
+- Advanced log filtering and search
+- Configurable alert thresholds
+- Authentication and authorization
+- Cloud deployment
+- Docker support
+- Log analytics and visualization
+
+## 🎯 Key Concepts
+
+This project demonstrates practical knowledge of:
+
+**Computer Networks • TCP/IP • Socket Programming • Client-Server Architecture • Multithreading • Concurrency • Synchronization • Distributed Systems • Log Monitoring**
+
+## 👩‍💻 Author
+
+**Sanskritha Vaidya**
+
+B.Tech — Artificial Intelligence & Machine Learning
+
+---
+
+⭐ If you find this project useful, consider giving it a star.
